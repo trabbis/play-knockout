@@ -114,3 +114,35 @@ button.remove:hover {
   background: #b00;
   color: #fff;
 }
+
+/* API demo page */
+.api-result {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.api-result blockquote {
+  margin: 0 0 0.5rem 0;
+  padding: 0 0 0 1rem;
+  border-left: 4px solid #0066cc;
+  font-style: italic;
+  color: #333;
+}
+
+.quote-author {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.api-loading,
+.api-error {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.api-error {
+  color: #b00;
+}

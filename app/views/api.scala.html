@@ -1,0 +1,71 @@
+@main("API Demo") {
+  <div class="container">
+    <h1>API Demo</h1>
+    <p class="subtitle">Fetches sample data from a public REST API</p>
+
+    <div class="card">
+      <button id="fetch-btn">Fetch sample post</button>
+      <div id="result" class="api-result" style="display: none;">
+        <blockquote id="quote-text"></blockquote>
+        <p id="quote-author" class="quote-author"></p>
+      </div>
+      <div id="loading" class="api-loading" style="display: none;">Loading...</div>
+      <div id="error" class="api-error" style="display: none;"></div>
+    </div>
+
+    <div class="card">
+      <a href="/">← Back to home</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("fetch-btn");
+      var result = document.getElementById("result");
+      var quoteText = document.getElementById("quote-text");
+      var quoteAuthor = document.getElementById("quote-author");
+      var loading = document.getElementById("loading");
+      var error = document.getElementById("error");
+
+      function showLoading() {
+        result.style.display = "none";
+        error.style.display = "none";
+        loading.style.display = "block";
+      }
+
+      function showResult(title, body, author) {
+        loading.style.display = "none";
+        error.style.display = "none";
+        quoteText.textContent = title ? (title + (body ? "\n\n" + body : "")) : (body || "");
+        quoteAuthor.textContent = author ? "— " + author : "";
+        quoteAuthor.style.display = author ? "block" : "none";
+        result.style.display = "block";
+      }
+
+      function showErr(msg) {
+        loading.style.display = "none";
+        result.style.display = "none";
+        error.textContent = msg;
+        error.style.display = "block";
+      }
+
+      if (btn) {
+        btn.addEventListener("click", function () {
+          showLoading();
+          fetch("/api-demo/quote")
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+              if (data.error) {
+                showErr(data.error);
+              } else {
+                showResult(data.title || "", data.body || data.content || "", data.author);
+              }
+            })
+            .catch(function () {
+              showErr("Failed to fetch. Check your connection.");
+            });
+        });
+      }
+    })();
+  </script>
+}
