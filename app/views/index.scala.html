@@ -1,25 +1,26 @@
-@main("Play Demo") {
-  <div class="container">
-    <h1>Play Framework Demo</h1>
-    <p class="subtitle">A simple reactive demo (vanilla JavaScript)</p>
+@main("Play + Knockout.js") {
+  <div class="container" id="app">
+    <h1>Play Framework + Knockout.js</h1>
+    <p class="subtitle">A simple reactive demo</p>
 
     <div class="card">
-      <label for="name-input">Your name:</label>
-      <input id="name-input" type="text" placeholder="Type here..." autocomplete="off">
-      <p class="greeting">Hello, <strong id="greeting">World</strong>!</p>
+      <label>Your name:</label>
+      <input type="text" data-bind="value: name, valueUpdate: 'input'" placeholder="Type here...">
+      <p class="greeting">Hello, <strong data-bind="text: greeting"></strong>!</p>
     </div>
 
     <div class="card">
       <label>Items:</label>
       <div class="input-row">
-        <input id="new-item" type="text" placeholder="New item" autocomplete="off">
-        <button id="add-btn">Add</button>
+        <input type="text" data-bind="value: newItem, valueUpdate: 'afterkeydown', event: { keydown: addItemOnEnter }" placeholder="New item">
+        <button data-bind="click: addItem">Add</button>
       </div>
-      <ul id="item-list">
-        <li><span>Play Framework</span><button class="remove">×</button></li>
-        <li><span>JavaScript</span><button class="remove">×</button></li>
+      <ul data-bind="foreach: items">
+        <li>
+          <span data-bind="text: name"></span>
+          <button class="remove" data-bind="click: $parent.removeItem">×</button>
+        </li>
       </ul>
     </div>
   </div>
-  <script src="@routes.Assets.at("javascripts/app.js")"></script>
 }

@@ -1,52 +1,52 @@
 (function () {
   "use strict";
 
-  var nameInput = document.getElementById("name-input");
-  var greetingEl = document.getElementById("greeting");
-  var newItemInput = document.getElementById("new-item");
-  var addBtn = document.getElementById("add-btn");
-  var itemList = document.getElementById("item-list");
-
-  function updateGreeting() {
-    var name = nameInput.value.trim();
-    greetingEl.textContent = name || "World";
+  function Item(name) {
+    this.name = name;
   }
 
-  function addItem() {
-    var text = newItemInput.value.trim();
-    if (!text) return;
-    var li = document.createElement("li");
-    li.innerHTML = "<span>" + escapeHtml(text) + "</span><button class=\"remove\">×</button>";
-    li.querySelector(".remove").addEventListener("click", function () {
-      li.remove();
+  function AppViewModel() {
+    var self = this;
+    self.name = ko.observable("");
+    self.greeting = ko.computed(function () {
+      return self.name() || "World";
     });
-    itemList.appendChild(li);
-    newItemInput.value = "";
-  }
+    self.items = ko.observableArray([
+      new Item("Play Framework"),
+      new Item("JavaScript")
+    ]);
+    self.newItem = ko.observable("");
 
-  function escapeHtml(s) {
-    var div = document.createElement("div");
-    div.textContent = s;
-    return div.innerHTML;
-  }
-
-  if (nameInput) {
-    nameInput.addEventListener("input", updateGreeting);
-  }
-
-  if (addBtn && newItemInput) {
-    addBtn.addEventListener("click", addItem);
-    newItemInput.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        addItem();
+    self.addItem = function () {
+      var value = self.newItem().trim();
+      if (value) {
+        self.items.push(new Item(value));
+        self.newItem("");
       }
-    });
+    };
+
+    self.addItemOnEnter = function (data, event) {
+      if (event.key === "Enter") {
+        self.addItem();
+        event.preventDefault();
+      }
+      return true;
+    };
+
+    self.removeItem = function (item) {
+      self.items.remove(item);
+    };
   }
 
-  itemList.querySelectorAll(".remove").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      btn.closest("li").remove();
-    });
-  });
+  function init() {
+    var appEl = document.getElementById("app");
+    if (appEl && typeof ko !== "undefined") {
+      ko.applyBindings(new AppViewModel(), appEl);
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
