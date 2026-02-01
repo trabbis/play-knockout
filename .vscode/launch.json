@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Play",
+      "type": "java",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 9999,
+      "projectName": "play-knockout"
+    },
+    {
+      "name": "Play: run and debug",
+      "type": "java",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 9999,
+      "projectName": "play-knockout",
+      "preLaunchTask": "Start Play (debug)"
+    }
+  ]
+}

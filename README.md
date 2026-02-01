@@ -1,6 +1,6 @@
 # Play Framework + Knockout.js
 
-A minimal web app using [Play Framework](https://www.playframework.com/) (Scala) and [Knockout.js](https://knockoutjs.com/) for reactive UI.
+A minimal web app using [Play Framework](https://www.playframework.com/) (Java) and [Knockout.js](https://knockoutjs.com/) for reactive UI.
 
 ## Prerequisites
 
@@ -23,10 +23,28 @@ Open [http://localhost:9000](http://localhost:9000).
   - Typing in “Your name” updates the greeting.
   - You can add/remove items in a list.
 
-## Project layout
+## Debugging
 
-- `app/controllers/` — Play controller
-- `app/views/` — Twirl HTML templates
-- `conf/routes` — URL routing
-- `public/javascripts/app.js` — Knockout view model and bindings
-- `public/stylesheets/main.css` — Styles
+### Backend (Java / Play)
+
+The build is set up so **`sbt run`** always starts the JVM with a debug port (9999). No special command needed.
+
+1. **Start the app** (as usual):
+   ```bash
+   sbt run
+   ```
+   Wait until the server is ready.
+
+2. **Attach from Cursor/VS Code**
+   - Install the **Debugger for Java** extension if you don’t have it.
+   - Set breakpoints in Java files (e.g. `app/controllers/HomeController.java`).
+   - Run → **Start Debugging** (or F5), choose **“Attach to Play”**.
+   - Trigger the code (e.g. open http://localhost:9000). Execution should stop at your breakpoints.
+
+### Frontend (JavaScript / Knockout)
+
+- **Browser DevTools**
+  - Open http://localhost:9000, then **F12** (or right‑click → Inspect).
+  - **Sources** tab: open `localhost:9000` → `assets` → `javascripts` → `app.js`, then click a line number to set a breakpoint.
+  - **Console**: run `ko.dataFor(document.body)` to inspect the Knockout root view model.
+- Reload or interact with the page; breakpoints in `app.js` will hit when that code runs.
