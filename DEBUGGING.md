@@ -25,26 +25,23 @@ If you open the parent folder (`cursor-projects`) instead, the debugger may not 
 
 ## Step 3: Start the app with the debug port
 
-You must start the app so it listens for a debugger on port **9999**.
+You must start the app so it listens for a debugger on port **9999**. Use `sbt -jvm-debug 9999 run` — plain `sbt run` will **not** open the debug port (Play runs in the sbt JVM).
 
-**Option A – From the menu (no typing)**
+**From the terminal:**
 
-1. **Terminal → Run Task…**
-2. Choose **“Start Play (debug)”**.
-3. A terminal will open and run `sbt -jvm-debug 9999 run`.
+1. **Terminal → New Terminal**
+2. Run **“Start Play (debug)”**.
+3. Then run `sbt -jvm-debug 9999 run`.
 4. Wait until you see something like **“Listening for HTTP”** or **“Started server”** (can take a minute the first time).
 5. Leave this terminal open; do not stop the process.
-
-**Option B – From the terminal**
 
 1. **Terminal → New Terminal**.
 2. Run:
    ```bash
-   cd play-knockout
    sbt -jvm-debug 9999 run
    ```
-3. Wait for “Started server” / “Listening for HTTP”.
-4. Leave the terminal running.
+3. Wait until you see “Started server” / “Listening for HTTP”.
+4. Leave the terminal open.
 
 ---
 
@@ -98,4 +95,4 @@ The request will hit your controller. Cursor should **switch to the editor** and
 1. **Confirm the app was started with debug:** You must use **“Start Play (debug)”** or `sbt -jvm-debug 9999 run`. Plain `sbt run` is not enough unless your build is set up to open the debug port (see README).
 2. **Confirm you attached after the server was ready:** Wait for “Listening for HTTP” / “Started server”, then press F5.
 3. **Confirm you’re in the right folder:** The folder that’s open in Cursor must be `play-knockout` (the one with `build.sbt` inside it).
-4. **Try a different port:** If 9999 is in use, in `build.sbt` change `9999` to e.g. `5005`, and in `.vscode/launch.json` change `"port": 9999` to `"port": 5005`. Then use `sbt -jvm-debug 5005 run` (or a task with 5005).
+4. **Try a different port:** If 9999 is in use, in `.vscode/launch.json` change `"port": 9999` to `"port": 5005`, then use `sbt -jvm-debug 5005 run`.

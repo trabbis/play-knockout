@@ -27,11 +27,11 @@ Open [http://localhost:9000](http://localhost:9000).
 
 ### Backend (Java / Play)
 
-The build is set up so **`sbt run`** always starts the JVM with a debug port (9999). No special command needed.
+Use **`sbt -jvm-debug 9999 run`** to start with the debug port (plain `sbt run` does not open it).
 
-1. **Start the app** (as usual):
+1. **Start the app** with debug:
    ```bash
-   sbt run
+   sbt -jvm-debug 9999 run
    ```
    Wait until the server is ready.
 

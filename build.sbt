@@ -9,6 +9,4 @@ scalaVersion := "2.13.12"
 
 libraryDependencies += guice
 
-// Listen for debugger on port 9999 when running `sbt run` (no -jvm-debug flag needed)
-fork in run := true
-javaOptions in run += "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9999"
+// For debugging: use `sbt -jvm-debug 9999 run` (Play runs in the sbt JVM, so -jvm-debug is required)
