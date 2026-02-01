@@ -1,10 +1,10 @@
 @main("API Demo") {
   <div class="container" id="api-demo">
     <h1>API Demo</h1>
-    <p class="subtitle">Fetches sample data from a public REST API</p>
+    <p class="subtitle">Fetches a random quote from the server</p>
 
     <div class="card">
-      <button data-bind="click: fetchPost, enable: !loading()">Fetch sample post</button>
+      <button data-bind="click: fetchPost, enable: !loading()">Get random quote</button>
       <div class="api-result" data-bind="visible: !loading() && !error() && (resultTitle() || resultBody())">
         <blockquote data-bind="text: resultText"></blockquote>
         <p class="quote-author" data-bind="visible: resultAuthor(), text: authorDisplay"></p>
