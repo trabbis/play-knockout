@@ -1,2 +1,3 @@
 GET     /                    controllers.HomeController.index()
+GET     /about               controllers.HomeController.about()
 GET     /assets/*file        controllers.Assets.at(path="/public", file)
